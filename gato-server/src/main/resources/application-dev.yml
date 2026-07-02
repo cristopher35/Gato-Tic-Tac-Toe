@@ -1,0 +1,5 @@
+logging:
+  level:
+    root: INFO
+    com.tuapp.gatoserver: DEBUG
+    org.hibernate.SQL: DEBUG
