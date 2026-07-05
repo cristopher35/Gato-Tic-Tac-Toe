@@ -1,0 +1,101 @@
+services:
+
+  # ─── Bases de datos ───────────────────────────────────────────────
+
+  db-server:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: Admin123
+      MYSQL_DATABASE: db_gato_server
+    ports:
+      - "3307:3306"
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-pAdmin123"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  db-client-1:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: Admin123
+      MYSQL_DATABASE: db_gato_client
+    ports:
+      - "3308:3306"
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-pAdmin123"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  db-client-2:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: Admin123
+      MYSQL_DATABASE: db_gato_client
+    ports:
+      - "3309:3306"
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-pAdmin123"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ─── Microservicios ───────────────────────────────────────────────
+
+  gato-server:
+    build:
+      context: ./gato-server
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      DB_URL: jdbc:mysql://db-server:3306/db_gato_server
+      DB_USERNAME: root
+      DB_PASSWORD: Admin123
+      SERVER_PORT: 8080
+    depends_on:
+      db-server:
+        condition: service_healthy
+
+  gato-client-1:
+    build:
+      context: ./gato-client
+      dockerfile: Dockerfile
+    ports:
+      - "8081:8081"
+    environment:
+      DB_URL: jdbc:mysql://db-client-1:3306/db_gato_client
+      DB_USERNAME: root
+      DB_PASSWORD: Admin123
+      SERVER_PORT: 8081
+      CLIENT_ID: gato-client-1
+      CLIENT_SECRET: secret123
+      CLIENT_BASE_URL: http://gato-client-1:8081
+      SERVER_TARGET_URL: http://gato-server:8080
+    depends_on:
+      db-client-1:
+        condition: service_healthy
+      gato-server:
+        condition: service_started
+
+  gato-client-2:
+    build:
+      context: ./gato-client
+      dockerfile: Dockerfile
+    ports:
+      - "8082:8082"
+    environment:
+      DB_URL: jdbc:mysql://db-client-2:3306/db_gato_client
+      DB_USERNAME: root
+      DB_PASSWORD: Admin123
+      SERVER_PORT: 8082
+      CLIENT_ID: gato-client-2
+      CLIENT_SECRET: secret456
+      CLIENT_BASE_URL: http://gato-client-2:8082
+      SERVER_TARGET_URL: http://gato-server:8080
+    depends_on:
+      db-client-2:
+        condition: service_healthy
+      gato-server:
+        condition: service_started
