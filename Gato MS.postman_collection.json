@@ -1,0 +1,996 @@
+{
+  "info": {
+    "_postman_id": "01a24391-b53c-47ff-8c11-d774f11cdb19",
+    "name": "Gato MS",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "55258534",
+    "_collection_link": "https://go.postman.co/collection/55258534-01a24391-b53c-47ff-8c11-d774f11cdb19?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "gato-server",
+      "item": [
+        {
+          "name": "Registrar MS Cliente",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"clientId\": \"gato-client-1\",\r\n  \"clientSecret\": \"secret123\",\r\n  \"baseUrl\": \"http://localhost:8081\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{serverUrl}}/api/clients/register",
+              "host": [
+                "{{serverUrl}}"
+              ],
+              "path": [
+                "api",
+                "clients",
+                "register"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Crear partida",
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "password",
+                  "value": "{{auth_password_18n8}}",
+                  "type": "string"
+                },
+                {
+                  "key": "username",
+                  "value": "gato-client-1",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"playerId\": 1,\r\n  \"gameType\": \"NO_TIME\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{serverUrl}}/api/games",
+              "host": [
+                "{{serverUrl}}"
+              ],
+              "path": [
+                "api",
+                "games"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Listar partidas",
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "password",
+                  "value": "{{auth_password_18n8}}",
+                  "type": "string"
+                },
+                {
+                  "key": "username",
+                  "value": "gato-client-1",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{serverUrl}}/api/games",
+              "host": [
+                "{{serverUrl}}"
+              ],
+              "path": [
+                "api",
+                "games"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Estado partida",
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "password",
+                  "value": "{{auth_password_18n8}}",
+                  "type": "string"
+                },
+                {
+                  "key": "username",
+                  "value": "gato-client-1",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{serverUrl}}/api/games/1",
+              "host": [
+                "{{serverUrl}}"
+              ],
+              "path": [
+                "api",
+                "games",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Unirse a partida",
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "password",
+                  "value": "{{auth_password_18n8}}",
+                  "type": "string"
+                },
+                {
+                  "key": "username",
+                  "value": "gato-client-1",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"playerId\": 2\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{serverUrl}}/api/games/1/join",
+              "host": [
+                "{{serverUrl}}"
+              ],
+              "path": [
+                "api",
+                "games",
+                "1",
+                "join"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Mover",
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "password",
+                  "value": "{{auth_password_18n8}}",
+                  "type": "string"
+                },
+                {
+                  "key": "username",
+                  "value": "gato-client-1",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"playerId\": 1,\r\n  \"position\": 0\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{serverUrl}}/api/games/1/move",
+              "host": [
+                "{{serverUrl}}"
+              ],
+              "path": [
+                "api",
+                "games",
+                "1",
+                "move"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Partidas por jugador",
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "password",
+                  "value": "{{auth_password_18n8}}",
+                  "type": "string"
+                },
+                {
+                  "key": "username",
+                  "value": "gato-client-1",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{serverUrl}}/api/games/player/1",
+              "host": [
+                "{{serverUrl}}"
+              ],
+              "path": [
+                "api",
+                "games",
+                "player",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Listar clientes MS",
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "password",
+                  "value": "{{auth_password_18n8}}",
+                  "type": "string"
+                },
+                {
+                  "key": "username",
+                  "value": "gato-client-1",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{serverUrl}}/api/clients",
+              "host": [
+                "{{serverUrl}}"
+              ],
+              "path": [
+                "api",
+                "clients"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "gato-client",
+      "item": [
+        {
+          "name": "Flujo Completo Partida",
+          "item": [
+            {
+              "name": "Jugador X:",
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"username\": \"jugadorX\",\r\n  \"password\": \"passX123\",\r\n  \"displayName\": \"Jugador X\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{client1Url}}/api/players",
+                  "host": [
+                    "{{client1Url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "players"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Jugador O",
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"username\": \"jugadorO\",\r\n  \"password\": \"passO123\",\r\n  \"displayName\": \"Jugador O\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{client1Url}}/api/players",
+                  "host": [
+                    "{{client1Url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "players"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Crear partida",
+              "request": {
+                "auth": {
+                  "type": "basic",
+                  "basic": [
+                    {
+                      "key": "password",
+                      "value": "{{auth_password_1cnw}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "username",
+                      "value": "jugadorX",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"serverUrl\": \"{{serverUrl}}\",\r\n  \"gameType\": \"NO_TIME\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{client1Url}}/api/game/create",
+                  "host": [
+                    "{{client1Url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "game",
+                    "create"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Unirse a partida",
+              "request": {
+                "auth": {
+                  "type": "basic",
+                  "basic": [
+                    {
+                      "key": "password",
+                      "value": "{{auth_password_0bf8}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "username",
+                      "value": "jugadorO",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "{{client1Url}}/api/game/1/join?serverUrl={{serverUrl}}",
+                  "host": [
+                    "{{client1Url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "game",
+                    "1",
+                    "join"
+                  ],
+                  "query": [
+                    {
+                      "key": "serverUrl",
+                      "value": "{{serverUrl}}"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Mover X pos O",
+              "request": {
+                "auth": {
+                  "type": "basic",
+                  "basic": [
+                    {
+                      "key": "password",
+                      "value": "{{auth_password_1cnw}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "username",
+                      "value": "jugadorX",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"position\": 0\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{client1Url}}/api/game/1/move",
+                  "host": [
+                    "{{client1Url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "game",
+                    "1",
+                    "move"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Mover O pos 4",
+              "request": {
+                "auth": {
+                  "type": "basic",
+                  "basic": [
+                    {
+                      "key": "password",
+                      "value": "{{auth_password_0bf8}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "username",
+                      "value": "jugadorO",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"position\": 4\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{client1Url}}/api/game/1/move",
+                  "host": [
+                    "{{client1Url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "game",
+                    "1",
+                    "move"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Mover X pos 1",
+              "request": {
+                "auth": {
+                  "type": "basic",
+                  "basic": [
+                    {
+                      "key": "password",
+                      "value": "{{auth_password_1cnw}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "username",
+                      "value": "jugadorX",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"position\": 1\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{client1Url}}/api/game/1/move",
+                  "host": [
+                    "{{client1Url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "game",
+                    "1",
+                    "move"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Mover O pos 3",
+              "request": {
+                "auth": {
+                  "type": "basic",
+                  "basic": [
+                    {
+                      "key": "password",
+                      "value": "{{auth_password_0bf8}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "username",
+                      "value": "jugadorO",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"position\": 3\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{client1Url}}/api/game/1/move",
+                  "host": [
+                    "{{client1Url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "game",
+                    "1",
+                    "move"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Mover X gana pos 2",
+              "request": {
+                "auth": {
+                  "type": "basic",
+                  "basic": [
+                    {
+                      "key": "password",
+                      "value": "{{auth_password_1cnw}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "username",
+                      "value": "jugadorX",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"position\": 2\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{client1Url}}/api/game/1/move",
+                  "host": [
+                    "{{client1Url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "game",
+                    "1",
+                    "move"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Estado final partida",
+              "request": {
+                "auth": {
+                  "type": "basic",
+                  "basic": [
+                    {
+                      "key": "password",
+                      "value": "{{auth_password_1cnw}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "username",
+                      "value": "jugadorX",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{client1Url}}/api/game/1/state",
+                  "host": [
+                    "{{client1Url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "game",
+                    "1",
+                    "state"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Registrar jugador",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"username\": \"jugador1\",\r\n  \"password\": \"pass123\",\r\n  \"displayName\": \"Jugador Uno\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{client1Url}}/api/players",
+              "host": [
+                "{{client1Url}}"
+              ],
+              "path": [
+                "api",
+                "players"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Ver jugador",
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "jugador1",
+                  "type": "string"
+                },
+                {
+                  "key": "password",
+                  "value": "pass123",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{client1Url}}/api/players/1",
+              "host": [
+                "{{client1Url}}"
+              ],
+              "path": [
+                "api",
+                "players",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Crear partida via cliente",
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "jugador1",
+                  "type": "string"
+                },
+                {
+                  "key": "password",
+                  "value": "pass123",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"serverUrl\": \"{{serverUrl}}\",\r\n  \"gameType\": \"NO_TIME\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{client1Url}}/api/game/create",
+              "host": [
+                "{{client1Url}}"
+              ],
+              "path": [
+                "api",
+                "game",
+                "create"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Unirse a partida via cliente",
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "password",
+                  "value": "pass456",
+                  "type": "string"
+                },
+                {
+                  "key": "username",
+                  "value": "jugador2",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{client1Url}}/api/game/1/join?serverUrl={{serverUrl}}",
+              "host": [
+                "{{client1Url}}"
+              ],
+              "path": [
+                "api",
+                "game",
+                "1",
+                "join"
+              ],
+              "query": [
+                {
+                  "key": "serverUrl",
+                  "value": "{{serverUrl}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Mover via cliente",
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "jugador1",
+                  "type": "string"
+                },
+                {
+                  "key": "password",
+                  "value": "pass123",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"position\": 0\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{client1Url}}/api/game/1/move",
+              "host": [
+                "{{client1Url}}"
+              ],
+              "path": [
+                "api",
+                "game",
+                "1",
+                "move"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Estado partida via cliente",
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "jugador1",
+                  "type": "string"
+                },
+                {
+                  "key": "password",
+                  "value": "pass123",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{client1Url}}/api/game/1/state",
+              "host": [
+                "{{client1Url}}"
+              ],
+              "path": [
+                "api",
+                "game",
+                "1",
+                "state"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Mis partidas",
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "jugador1",
+                  "type": "string"
+                },
+                {
+                  "key": "password",
+                  "value": "pass123",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{client1Url}}/api/game/my-games",
+              "host": [
+                "{{client1Url}}"
+              ],
+              "path": [
+                "api",
+                "game",
+                "my-games"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "auth_password_18n8",
+      "secret": true
+    },
+    {
+      "key": "auth_password_1cnw",
+      "secret": true
+    },
+    {
+      "key": "auth_password_0bf8",
+      "secret": true
+    }
+  ]
+}
