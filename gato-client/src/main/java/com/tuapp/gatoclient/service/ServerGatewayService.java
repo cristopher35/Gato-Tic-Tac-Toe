@@ -1,6 +1,7 @@
 package com.tuapp.gatoclient.service;
 
 import com.tuapp.gatoclient.client.GatoServerClient;
+import com.tuapp.gatoclient.dto.ServerHealthResponse;
 import com.tuapp.gatoclient.exception.ClientException;
 import com.tuapp.gatoclient.repository.PlayerRepository;
 import lombok.RequiredArgsConstructor;
@@ -68,6 +69,22 @@ public class ServerGatewayService {
     public Object getMyGames() {
         Long playerId = getAuthenticatedPlayerId();
         return gameRegistryService.getGamesByPlayerGroupedByServer(playerId);
+    }
+
+    public ServerHealthResponse checkServerHealth(String serverUrl) {
+        long latency = serverClient.pingAndMeasure(serverUrl);
+        return ServerHealthResponse.builder()
+            .serverUrl(serverUrl)
+            .available(latency >= 0)
+            .latencyMs(latency >= 0 ? latency : null)
+            .checkedAt(java.time.LocalDateTime.now())
+            .build();
+    }
+
+    public ResponseEntity<Object> getGameHistory(Long gameId) {
+        Long playerId = getAuthenticatedPlayerId();
+        String serverUrl = gameRegistryService.getServerUrl(gameId, playerId);
+        return serverClient.get(serverUrl, "/api/games/" + gameId + "/history");
     }
 
     private Long getAuthenticatedPlayerId() {

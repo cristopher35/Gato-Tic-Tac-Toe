@@ -80,6 +80,17 @@ public class GatoServerClient {
         }
     }
 
+    public long pingAndMeasure(String serverUrl) {
+        long start = System.currentTimeMillis();
+        try {
+            restTemplate.getForEntity(serverUrl + "/api/health", String.class);
+            return System.currentTimeMillis() - start;
+        } catch (Exception e) {
+            log.warn("Health check falló para {}: {}", serverUrl, e.getMessage());
+            return -1;
+        }
+    }
+
     private HttpHeaders buildHeaders() {
         HttpHeaders headers = new HttpHeaders();
         headers.setBasicAuth(clientId, clientSecret);

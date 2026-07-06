@@ -1,16 +1,19 @@
 package com.tuapp.gatoserver.service;
 
 import com.tuapp.gatoserver.dto.CreateGameRequest;
+import com.tuapp.gatoserver.dto.GameMoveResponse;
 import com.tuapp.gatoserver.dto.GameResponse;
 import com.tuapp.gatoserver.dto.JoinGameRequest;
 import com.tuapp.gatoserver.dto.MoveRequest;
 import com.tuapp.gatoserver.exception.GameNotFoundException;
 import com.tuapp.gatoserver.exception.InvalidMoveException;
 import com.tuapp.gatoserver.model.Game;
+import com.tuapp.gatoserver.model.GameMove;
 import com.tuapp.gatoserver.model.GameResult;
 import com.tuapp.gatoserver.model.GameStatus;
 import com.tuapp.gatoserver.model.GameType;
 import com.tuapp.gatoserver.model.PlayerSymbol;
+import com.tuapp.gatoserver.repository.GameMoveRepository;
 import com.tuapp.gatoserver.repository.GameRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -27,6 +30,7 @@ public class GameService {
 
     private final GameRepository gameRepository;
     private final GameValidatorService validator;
+    private final GameMoveRepository gameMoveRepository;
 
     // ─────────────────────────────────────────────
     // Crear partida
@@ -143,6 +147,18 @@ public class GameService {
         game.setBoard(newBoard);
         game.setLastMoveAt(LocalDateTime.now());
 
+        // Registrar el movimiento en el historial
+        int moveNumber = gameMoveRepository.countByGameId(gameId) + 1;
+        GameMove move = GameMove.builder()
+                .gameId(gameId)
+                .moveNumber(moveNumber)
+                .playerId(request.getPlayerId())
+                .symbol(symbol)
+                .position(request.getPosition())
+                .playedAt(LocalDateTime.now())
+                .build();
+        gameMoveRepository.save(move);
+
         // Detectar fin de partida
         GameResult result = validator.detectResult(newBoard);
         if (result != null) {
@@ -173,6 +189,25 @@ public class GameService {
                     }
                     return toResponse(game);
                 })
+                .toList();
+    }
+
+    // ─────────────────────────────────────────────
+    // Historial de movimientos de una partida
+    // ─────────────────────────────────────────────
+
+    public List<GameMoveResponse> getMoveHistory(Long gameId) {
+        if (!gameRepository.existsById(gameId)) {
+            throw new GameNotFoundException(gameId);
+        }
+        return gameMoveRepository.findByGameIdOrderByMoveNumberAsc(gameId).stream()
+                .map(m -> GameMoveResponse.builder()
+                        .moveNumber(m.getMoveNumber())
+                        .playerId(m.getPlayerId())
+                        .symbol(m.getSymbol())
+                        .position(m.getPosition())
+                        .playedAt(m.getPlayedAt())
+                        .build())
                 .toList();
     }
 

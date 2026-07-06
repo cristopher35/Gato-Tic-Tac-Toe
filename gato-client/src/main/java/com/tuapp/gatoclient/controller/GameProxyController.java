@@ -2,6 +2,7 @@ package com.tuapp.gatoclient.controller;
 
 import com.tuapp.gatoclient.dto.CreateGameProxyRequest;
 import com.tuapp.gatoclient.dto.MoveProxyRequest;
+import com.tuapp.gatoclient.dto.ServerHealthResponse;
 import com.tuapp.gatoclient.service.ServerGatewayService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -55,5 +56,12 @@ public class GameProxyController {
     @GetMapping("/my-games")
     public ResponseEntity<Object> myGames() {
         return ResponseEntity.ok(gatewayService.getMyGames());
+    }
+
+    @Operation(summary = "Health check del server de juego")
+    @GetMapping("/server-health")
+    public ResponseEntity<ServerHealthResponse> serverHealth(@RequestParam String serverUrl) {
+        log.info("GET /api/game/server-health - serverUrl={}", serverUrl);
+        return ResponseEntity.ok(gatewayService.checkServerHealth(serverUrl));
     }
 }

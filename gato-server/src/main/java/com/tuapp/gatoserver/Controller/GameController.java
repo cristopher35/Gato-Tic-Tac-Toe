@@ -1,6 +1,7 @@
 package com.tuapp.gatoserver.controller;
 
 import com.tuapp.gatoserver.dto.CreateGameRequest;
+import com.tuapp.gatoserver.dto.GameMoveResponse;
 import com.tuapp.gatoserver.dto.GameResponse;
 import com.tuapp.gatoserver.dto.JoinGameRequest;
 import com.tuapp.gatoserver.dto.MoveRequest;
@@ -96,5 +97,16 @@ public class GameController {
     @GetMapping("/player/{playerId}")
     public ResponseEntity<List<GameResponse>> getGamesByPlayer(@PathVariable Long playerId) {
         return ResponseEntity.ok(gameService.getGamesByPlayer(playerId));
+    }
+
+    @Operation(summary = "Historial de movimientos de una partida")
+    @ApiResponses({
+        @ApiResponse(responseCode = "200", description = "Historial de movimientos"),
+        @ApiResponse(responseCode = "404", description = "Partida no encontrada")
+    })
+    @GetMapping("/{gameId}/history")
+    public ResponseEntity<List<GameMoveResponse>> getHistory(@PathVariable Long gameId) {
+        log.info("GET /api/games/{}/history", gameId);
+        return ResponseEntity.ok(gameService.getMoveHistory(gameId));
     }
 }
